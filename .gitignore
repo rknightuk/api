@@ -1,0 +1,8 @@
+.env
+node_modules
+api/*
+overcast-sessions
+services/overcast/fetcher/conf.py
+services/overcast/fetcher/conf.pyc
+services/overcast/overcast.opml
+note

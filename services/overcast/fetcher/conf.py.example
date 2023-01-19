@@ -1,0 +1,3 @@
+SESSION_PATH = "./overcast-sessions" # will create the sessions file in the current folder
+EMAIL = ""
+PASSWORD = ""
