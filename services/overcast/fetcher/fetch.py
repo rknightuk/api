@@ -9,9 +9,6 @@ Also, populate your EMAIL and PASSWORD below.
 '''
 
 from xml.etree import ElementTree
-from datetime import datetime
-from dateutil.tz import UTC
-from dateutil.parser import parse as parse_dt
 
 import conf
 import re
