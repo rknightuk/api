@@ -1,5 +1,5 @@
 monday:
-	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/music.js
+	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/lastfm.js
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/books.js
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/psn.js
 friday:
