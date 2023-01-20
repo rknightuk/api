@@ -23,20 +23,8 @@ ${nowPageLink}
 --- Now ---
 `
 
-const status = data.statuses[0]
-let webcontent = `${nowPageLink}
-
-### ${status.emoji} Status
-
-<div class="statuslol" style="">
-    <div class="statuslol_content">
-        <p>${status.content}</p>
-        <div class="statuslol_time">
-            <a href="https://robb.status.lol/${status.id}">${status.relative_time}</a>
-        </div>
-    </div>
-</div>
-`
+    const status = data.statuses[0]
+    let webcontent = ''
 
     const EMOJI = { // this is also the order of output
         Currently: '⭐',

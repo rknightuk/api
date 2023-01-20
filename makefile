@@ -9,8 +9,8 @@ friday:
 	python3 /home/forge/api.rknight.me/services/overcast/fetcher/fetch.py
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/overcast/parser/run.js
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/overcast/now.js
+    /home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/now/generate.js
 daily:
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/github.js
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/other.js
-hourly:
-	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/statuses.js
+    /home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/now/generate.js
