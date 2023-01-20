@@ -9,5 +9,8 @@ export default {
         data[key] = input
 
         fs.writeFileSync(API_PATH, JSON.stringify(data, '', 2))
+    },
+    get: () => {
+        return JSON.parse(fs.readFileSync(API_PATH, 'utf8'))
     }
 }

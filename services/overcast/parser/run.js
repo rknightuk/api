@@ -15,6 +15,8 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
             return;
         }
 
+        const isConnectedPro = podcast.title === 'Connected Pro'
+
         let singleEpisode = false;
 
         try {
@@ -35,6 +37,12 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
             const progress = e.progress ? parseInt(e.progress, 10) : 0
             if (e.played === '1' || progress > 600)
             {
+                let episodeUrl = e.url
+                if (isConnectedPro)
+                {
+                    const episodeNumber = e.title.split(':')[0]
+                    episodeUrl = `https://relay.fm/connected/${episodeNumber}`
+                }
                 const episode = {
                     id: e.overcastId,
                     content_text: `${podcast.title} - ${e.title}`,
@@ -43,9 +51,9 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
                     '_podcast_metadata': {
                         id: e.overcastId,
                         podcastTitle: podcast.title,
-                        podcastUrl: podcast.htmlUrl,
+                        podcastUrl: isConnectedPro ? 'https://relay.fm/connected' : podcast.htmlUrl,
                         episodeTitle: e.title,
-                        episodeUrl: e.url,
+                        episodeUrl,
                         pubDate: new Date(e.pubDate),
                         played: new Date(e.userUpdatedDate),
                     }

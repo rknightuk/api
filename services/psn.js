@@ -16,7 +16,7 @@ async function run() {
 
         games.push({
             title: title,
-            link: link
+            link: `https://psnprofiles.com${link}`
         })
     })
 

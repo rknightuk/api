@@ -13,7 +13,7 @@ function run() {
             podcasts[title] = {
                 count: 0,
                 title,
-                url: title === 'Connected Pro' ? 'https://relay.fm/connected' : episode['_podcast_metadata'].podcastUrl
+                url: episode['_podcast_metadata'].podcastUrl
             }
         }
 

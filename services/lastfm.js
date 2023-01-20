@@ -25,7 +25,7 @@ async function run() {
             title: a.name,
             artist: a.artist.name,
             link: a.url,
-            art: a.image.pop()['#text'] === '' ? null : a.image.pop()['#text']
+            art: a.image.pop()['#text'] === '' ? 'https://api.rknight.me/assets/no-artwork.png' : a.image.pop()['#text']
         }
     })
 
@@ -33,7 +33,7 @@ async function run() {
         return {
             name: a.name,
             link: a.url,
-            artist: a.artist,
+            artist: a.artist.name,
         }
     })
 
