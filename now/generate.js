@@ -38,7 +38,7 @@ let webcontent = `${nowPageLink}
 </div>
 `
 
-    const EMOJI = {
+    const EMOJI = { // this is also the order of output
         Currently: '⭐',
         Making: '💻',
         Watching: '📺',
@@ -90,7 +90,7 @@ let webcontent = `${nowPageLink}
     </div>`
     }
 
-    Object.keys(lists).forEach(key => {
+    Object.keys(EMOJI).forEach(key => {
 omglolcontent += `
 ### ${key}
 
