@@ -5,5 +5,6 @@ overcast-sessions
 services/overcast/fetcher/conf.py
 services/overcast/fetcher/conf.pyc
 services/overcast/overcast.opml
+services/overcast/overcast-backup.opml
 note
 episodes
