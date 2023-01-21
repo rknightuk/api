@@ -1,4 +1,4 @@
-import * as cheerio from 'cheerio';
+import * as cheerio from 'cheerio'
 import store from '../utils/store.js'
 
 async function run() {

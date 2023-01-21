@@ -1,3 +1,4 @@
+import * as cheerio from 'cheerio'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -37,12 +38,37 @@ async function run() {
         }
     })
 
-    music.artists = artistBody.topartists.artist.slice(0, 5).map(a => {
-        return {
-            name: a.name,
-            link: a.url,
+    for (const artist of artistBody.topartists.artist.slice(0, 5))
+    {
+        const artPath = `https://musicbrainz.org/ws/2/artist/${artist.mbid}?inc=url-rels&fmt=json`
+        const artistResponse = await fetch(artPath);
+        const artistData = await artistResponse.json()
+        const allMusic = artistData.relations.find(r => {
+            return r.type === 'allmusic'
+        })
+        const allMusicLink = allMusic ? allMusic.url.resource : null
+
+        let artistImage = null
+
+        if (allMusicLink)
+        {
+            const response = await fetch(allMusicLink)
+            const body = await response.text();
+            const $ = cheerio.load(body)
+
+            const images = $('.media-gallery-image')
+            images.each((i, el) => {
+                if (artistImage) return
+                artistImage = $(el).attr('src')
+            })
         }
-    })
+
+        music.artists.push({
+            name: artist.name,
+            link: artist.url,
+            art: artistImage ? artistImage : 'https://api.rknight.me/assets/no-artwork.png',
+        })
+    }
 
     store.set('music', music)
   } catch (error) {
