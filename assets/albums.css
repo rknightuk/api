@@ -23,6 +23,12 @@
     max-width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: 0.2s linear;
+}
+
+.now_album img:hover {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
 }
 
 .now_album_text {
