@@ -63,7 +63,6 @@ ${nowPageLink}
     }).join('\n'),
     Podcasts: data.podcasts.slice(0, 5).map((p, i) => `- [${p.title}](${p.url}) {${getIcon('podcast', i)}}`).join('\n'),
     Tracks: data.music.tracks.map((t, i) => `- [${t.name} by ${t.artist}](${t.link}) {${getIcon('music', i)}}`).join('\n'),
-    // Artists: data.music.artists.map((p, i) => `- [${p.name}](${p.link}) {${getIcon('music', i)}}`).join('\n'),
     Artists: `
 <div class="now_albums">
     ${data.music.artists.map(b => {
