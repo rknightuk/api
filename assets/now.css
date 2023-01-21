@@ -50,3 +50,24 @@
     font-size: 0.7em;
     padding: 3px;
 }
+
+.now_game_text {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.now_game_text a {
+    color: white;
+    background: black;
+    padding: 5px 10px;
+    opacity: 0.8;
+    border-bottom: none;
+}

@@ -55,9 +55,13 @@ ${nowPageLink}
         return `- [${m.title}](${m.webLink ? m.webLink : m.repoLink}): ${m.description} {${m.description.includes('omg.lol') ? 'prami' : getIcon('making', i)}}`
     }).join('\n'),
     Watching: data.tv.map(t => `- ${t}`).join('\n'),
-    Playing: data.games.slice(0, 1).map(g => {
-        return `- [${g.title}](${g.link}) {gamepad}`
-    }).join('\n'),
+    Playing: `
+<div class="now_game" style="position: relative;">
+<img src="${data.games[0].image}">
+<div class="now_game_text">
+<a href="${data.games[0].link}">${data.games[0].title}<a>
+</div>
+    </div>`,
     Reading: data.books.map((b, i) => {
         return `- [${b.title} by ${b.authors}](${b.link}) {${getIcon('reading', i)}}`
     }).join('\n'),

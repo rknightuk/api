@@ -16,7 +16,8 @@ async function run() {
 
         games.push({
             title: title,
-            link: `https://psnprofiles.com${link}`
+            link: `https://psnprofiles.com${link}`,
+            image: i === 0 ? $('#first-banner .img').first().attr('style').split('url(')[1].replace(')', '') : null,
         })
     })
 
