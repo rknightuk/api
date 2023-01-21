@@ -59,7 +59,7 @@ ${nowPageLink}
 <div class="now_game" style="position: relative;">
 <img src="${data.games[0].image}">
 <div class="now_game_text">
-<a href="${data.games[0].link}">${data.games[0].title}<a>
+<a href="${data.games[0].link}">${data.games[0].title}</a>
 </div>
     </div>`,
     Reading: data.books.map((b, i) => {
