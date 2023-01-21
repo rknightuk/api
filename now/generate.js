@@ -34,8 +34,8 @@ ${nowPageLink}
         Reading: '📚',
         Podcasts: '🎙️',
         Albums: '🎸',
-        Tracks: '🎺',
         Artists: '👨‍🎤',
+        Tracks: '🎺',
     }
 
     const getIcon = (key, index) => {
@@ -63,7 +63,19 @@ ${nowPageLink}
     }).join('\n'),
     Podcasts: data.podcasts.slice(0, 5).map((p, i) => `- [${p.title}](${p.url}) {${getIcon('podcast', i)}}`).join('\n'),
     Tracks: data.music.tracks.map((t, i) => `- [${t.name} by ${t.artist}](${t.link}) {${getIcon('music', i)}}`).join('\n'),
-    Artists: data.music.artists.map((p, i) => `- [${p.name}](${p.link}) {${getIcon('music', i)}}`).join('\n'),
+    // Artists: data.music.artists.map((p, i) => `- [${p.name}](${p.link}) {${getIcon('music', i)}}`).join('\n'),
+    Artists: `
+<div class="now_albums">
+    ${data.music.artists.map(b => {
+        const text = `${b.name}`
+        let extra = ''
+        if (b.art.includes('no-artwork.png'))
+        {
+            extra = `<div class="now_album_text"><div class="now_album_text_container">${text}</div></div>`
+        }
+        return `<div class="now_album"><a href="${b.link}">${extra}<img src="${b.art}" alt="${text}"></a></div>`
+    }).join('')}
+    </div>`,
     Albums: `
 <div class="now_albums">
     ${data.music.albums.map(b => {
