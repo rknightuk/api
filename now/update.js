@@ -21,6 +21,10 @@ async function run() {
     .then(json => {
         console.log('✅ Updated')
     })
+
+    fetch(process.env.RKNIGHTHOOK, {
+        method: 'get',
+    })
 }
 
 run()
