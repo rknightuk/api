@@ -1,8 +1,19 @@
 import * as cheerio from 'cheerio'
+import textToImage from 'text-to-image'
 import dotenv from 'dotenv'
 dotenv.config()
 
 import store from '../utils/store.js'
+
+const ART_OPTIONS = {
+    maxWidth: 200,
+    customHeight: 200,
+    textColor: 'white',
+    textAlign: 'center',
+    margin: 20,
+    bgColor: 'black',
+    verticalAlign: 'center'
+}
 
 async function run() {
   try {
@@ -21,14 +32,20 @@ async function run() {
     const artists = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=rknightuk&api_key=${lastfmkey}&format=json&period=7day`);
     const artistBody = await artists.json()
 
-    music.albums = albumBody.topalbums.album.slice(0, 5).map(a => {
-        return {
-            title: a.name,
-            artist: a.artist.name,
-            link: a.url,
-            art: a.image.pop()['#text'] === '' ? 'https://api.rknight.me/assets/no-artwork.png' : a.image.pop()['#text']
+    for (const album of albumBody.topalbums.album.slice(0, 5))
+    {
+        let art = album.image.pop()['#text']
+        if (art === '')
+        {
+            art = await textToImage.generate(`${album.name} by ${album.artist.name}`, ART_OPTIONS)
         }
-    })
+        music.albums.push({
+            title: album.name,
+            artist: album.artist.name,
+            link: album.url,
+            art: art,
+        })
+    }
 
     music.tracks = trackBody.toptracks.track.slice(0, 5).map(a => {
         return {
@@ -63,10 +80,15 @@ async function run() {
             })
         }
 
+        if (!artistImage)
+        {
+            artistImage = await textToImage.generate(artist.name, ART_OPTIONS)
+        }
+
         music.artists.push({
             name: artist.name,
             link: artist.url,
-            art: artistImage ? artistImage : 'https://api.rknight.me/assets/no-artwork.png',
+            art: artistImage,
         })
     }
 

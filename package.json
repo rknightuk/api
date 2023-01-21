@@ -3,6 +3,7 @@
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "js-yaml": "^4.1.0",
+    "text-to-image": "^5.2.0",
     "xml2json": "^0.12.0"
   },
   "type": "module"
