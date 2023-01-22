@@ -40,7 +40,7 @@ async function run() {
 
     let path = 'https://micro.blog/micropub' +
         '?h=entry' +
-        `&mp-destination=https://rknightuk-test.micto.blog` +
+        `&mp-destination=https://rknightuk.micto.blog` +
         `&content=${encodeURIComponent(description)}` +
         `&name=${title}` +
         categories
