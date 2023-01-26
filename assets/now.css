@@ -95,3 +95,8 @@
     transition: 0.2s linear;
     box-shadow: #adb5bd 0px 8px 24px;
 }
+
+.now_album a,
+.now_show a {
+    border-bottom: none;
+}
