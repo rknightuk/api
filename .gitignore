@@ -8,3 +8,4 @@ services/overcast/overcast.opml
 services/overcast/overcast-backup.opml
 note
 episodes
+assets/pod/*

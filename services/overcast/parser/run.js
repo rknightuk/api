@@ -1,5 +1,6 @@
 import fs from 'fs'
 import xml2json from 'xml2json'
+import https from 'https'
 
 fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
   if (err) {
@@ -33,6 +34,22 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
 
         const episodes = singleEpisode ? [podcast.outline] : podcast.outline
 
+        if (!fs.existsSync(`./assets/pod/${podcast.overcastId}.jpg`))
+        {
+            console.log(`./assets/${podcast.title} does not exist, downloading`)
+            const url = `https://public.overcast-cdn.com/art/${podcast.overcastId}`
+
+            https.get(url, (res) => {
+                const path = `./assets/pod/${podcast.overcastId}.jpg`
+                const filePath = fs.createWriteStream(path)
+                res.pipe(filePath)
+                filePath.on('finish',() => {
+                    filePath.close()
+                    console.log('Download Completed')
+                })
+            })
+        }
+
         episodes.forEach(e => {
             const progress = e.progress ? parseInt(e.progress, 10) : 0
             if (e.played === '1' || progress > 600)
@@ -50,7 +67,7 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
                     date_published: new Date(e.userUpdatedDate),
                     '_podcast_metadata': {
                         id: e.overcastId,
-                        artwork: `https://public.overcast-cdn.com/art/${podcast.overcastId}`,
+                        artwork: `https://api.rknight.me/assets/pod/${podcast.overcastId}.jpg`,
                         podcastTitle: podcast.title,
                         podcastUrl: isConnectedPro ? 'https://relay.fm/connected' : podcast.htmlUrl,
                         episodeTitle: e.title,
