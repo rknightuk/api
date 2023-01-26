@@ -30,8 +30,8 @@ ${nowPageLink}
         Currently: '⭐',
         Making: '💻',
         Watching: '📺',
-        Playing: '🎮',
         Reading: '📚',
+        Playing: '🎮',
         Podcasts: '🎙️',
         Albums: '🎸',
         Artists: '👨‍🎤',
@@ -113,7 +113,7 @@ ${nowPageLink}
 
     Object.keys(EMOJI).forEach(key => {
 omglolcontent += `
-### ${key}
+### ${EMOJI[key]} ${key}
 
 ${lists[key]}
 `
