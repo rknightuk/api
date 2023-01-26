@@ -6,14 +6,15 @@ function run() {
     const data = JSON.parse(fs.readFileSync('./api/podcasts.json', 'utf8'))
 
     let podcasts = {}
-    data.slice(0, 30).forEach(episode => {
+    data.slice(0, 20).forEach(episode => {
         const title = episode['_podcast_metadata'].podcastTitle
         if (!podcasts[title])
         {
             podcasts[title] = {
                 count: 0,
                 title,
-                url: episode['_podcast_metadata'].podcastUrl
+                url: episode['_podcast_metadata'].podcastUrl,
+                image: episode['_podcast_metadata'].artwork,
             }
         }
 

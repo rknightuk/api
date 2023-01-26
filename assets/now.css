@@ -21,9 +21,9 @@
 
 .now_album img {
     max-width: 100%;
-    height: 100%;
     object-fit: cover;
     transition: 0.2s linear;
+    aspect-ratio: 1/1;
 }
 
 .now_album img:hover {

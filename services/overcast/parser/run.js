@@ -50,6 +50,7 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
                     date_published: new Date(e.userUpdatedDate),
                     '_podcast_metadata': {
                         id: e.overcastId,
+                        artwork: `https://public.overcast-cdn.com/art/${podcast.overcastId}`,
                         podcastTitle: podcast.title,
                         podcastUrl: isConnectedPro ? 'https://relay.fm/connected' : podcast.htmlUrl,
                         episodeTitle: e.title,
