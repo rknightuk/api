@@ -26,7 +26,8 @@
     aspect-ratio: 1/1;
 }
 
-.now_album img:hover {
+.now_album img:hover,
+.now_show img:hover {
     -webkit-transform: scale(1.15);
     transform: scale(1.15);
 }
@@ -79,8 +80,18 @@
     position: relative;
 }
 
-.now_show {}
+.now_show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .now_show img {
     max-height: 200px;
+}
+
+.now_show img,
+.now_album img {
+    transition: 0.2s linear;
+    box-shadow: #adb5bd 0px 8px 24px;
 }
