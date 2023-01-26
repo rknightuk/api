@@ -54,7 +54,15 @@ ${nowPageLink}
     Making: data.making.slice(0, 5).map((m, i) => {
         return `- [${m.title}](${m.webLink ? m.webLink : m.repoLink}): ${m.description} {${m.description.includes('omg.lol') ? 'prami' : getIcon('making', i)}}`
     }).join('\n'),
-    Watching: data.tv.map(t => `- ${t}`).join('\n'),
+    Watching: `
+<div class="now_shows">
+    ${data.tv.map((t) => {
+        const text = `${t.title}`
+        return `<div class="now_show">
+            <a href="${t.link}"><img src="${t.image}" alt="${text}"></a>
+            </div>`
+    }).join('')}
+    </div>`,
     Playing: `
 <div class="now_game" style="position: relative;">
 <img src="${data.games[0].image}">
