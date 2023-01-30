@@ -15,3 +15,5 @@ daily:
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/github.js
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/other.js
 	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/now/generate.js
+hourly:
+	/home/forge/.nvm/versions/node/v19.2.0/bin/node /home/forge/api.rknight.me/services/webmentions.js
