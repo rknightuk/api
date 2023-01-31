@@ -1,10 +1,9 @@
 import fs from 'fs'
-import http from 'https'
 import uploader, { makeKey } from '../utils/uploader.js'
 
 async function run() {
   try {
-    const MASTOINSTANCE = 'mas.to'
+    const MASTOINSTANCE = 'social.lol'
     const MASTOID = '109677295883407777'
     const DATAPATH = './api/mastodon.json'
 
@@ -55,10 +54,10 @@ async function run() {
     console.log(`Got ${toots.length} toots`)
     const newSinceId = toots[0].id
 
-    // for (const image of images)
-    // {
-    //     await uploader(image)
-    // }
+    for (const image of images)
+    {
+        await uploader(image)
+    }
 
     fs.writeFileSync(DATAPATH, JSON.stringify({
         sinceId: newSinceId,
