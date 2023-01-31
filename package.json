@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "aws-sdk": "^2.1306.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
+    "file-type": "^18.2.0",
     "js-yaml": "^4.1.0",
     "luxon": "^3.2.1",
     "text-to-image": "^5.2.0",

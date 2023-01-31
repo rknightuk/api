@@ -8,7 +8,7 @@ async function run() {
     const webmentionskey = process.env.WEBMENTIONS
     if (!fs.existsSync(DATAPATH))
     {
-        console.log("making new fdile")
+        console.log("making new file")
         fs.writeFileSync('./api/webmentions.json', JSON.stringify({
             sinceId: null,
             mentions: []

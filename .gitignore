@@ -9,3 +9,4 @@ services/overcast/overcast-backup.opml
 note
 episodes
 assets/pod/*
+tmp
