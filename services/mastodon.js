@@ -1,6 +1,22 @@
 import fs from 'fs'
 import uploader, { makeKey } from '../utils/uploader.js'
 
+const formatToot = (t) => {
+    return {
+        id: t.id,
+        spoilerText: t.spoiler_text === '' ? null : t.spoiler_text,
+        url: t.url,
+        content: t.content,
+        attachments: t.media_attachments.map(m => {
+            return {
+                type: m.type,
+                url: makeKey(m.url),
+                description: m.description,
+            }
+        }),
+        tags: (t.tags || []).map(t => t.name)
+    }
+}
 async function run() {
   try {
     // const MASTOINSTANCE = 'social.lol'
@@ -14,60 +30,61 @@ async function run() {
         console.log("making new file")
         fs.writeFileSync(DATAPATH, JSON.stringify({
             sinceId: null,
-            posts: []
+            posts: {}
         }, '', 2))
     }
 
     const tootData = JSON.parse(fs.readFileSync(DATAPATH, 'utf8'))
-    let path = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_reblogs=true&exclude_replies=true`
 
+    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_reblogs=true&exclude_replies=true`
+    let path = corePath
     const sinceId = tootData.sinceId
     if (sinceId)
     {
         path = `${path}&since_id=${sinceId}`
     }
 
-    const response = await fetch(path)
-    const body = await response.json()
+    const newTootResponse = await fetch(path)
+    const newTootBody = await newTootResponse.json()
 
-    const images = []
+    const newImages = []
+    const newToots = []
 
-    const toots = body.map(t => {
-        return {
-            id: t.id,
-            spoilerText: t.spoiler_text === '' ? null : t.spoiler_text,
-            url: t.url,
-            content: t.content,
-            attachments: t.media_attachments.map(m => {
-                images.push(m.url)
-                return {
-                    type: m.type,
-                    url: makeKey(m.url),
-                    description: m.description,
-                }
-            }),
-            tags: (t.tags || []).map(t => t.name)
-        }
+    newTootBody.forEach(t => {
+        newToots.push(t.id)
+        t.media_attachments.forEach(m => {
+            newImages.push(m.url)
+        })
     })
 
-    if (toots.length === 0)
+    if (newToots.length > 0)
     {
-        return
-    }
-    console.log(`Got ${toots.length} toots`)
-    const newSinceId = toots[0].id
+        console.log(`Got ${newToots.length} toots`)
 
-    for (const image of images)
-    {
-        await uploader(image)
+        for (const image of newImages)
+        {
+            await uploader(image)
+        }
+    } else {
+        console.log('no new toots')
     }
+
+    const toots = {}
+    const allTootResponse = await fetch(corePath)
+    const allTootBody = await allTootResponse.json()
+
+    allTootBody.forEach(t => {
+        toots[t.id] = formatToot(t)
+    })
+
+    const newSinceId = Object.keys(toots)[0]
 
     fs.writeFileSync(DATAPATH, JSON.stringify({
-        sinceId: newSinceId,
-        posts: [
-            ...toots,
+        sinceId: newSinceId || null,
+        posts: {
             ...tootData.posts,
-        ]
+            ...toots,
+        }
     }, '', 2))
 
   } catch (error) {
