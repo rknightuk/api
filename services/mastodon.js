@@ -4,7 +4,7 @@ import uploader, { makeKey } from '../utils/uploader.js'
 const formatToot = (t) => {
     return {
         id: t.id,
-        date: created_at,
+        date: t.created_at,
         spoilerText: t.spoiler_text === '' ? null : t.spoiler_text,
         url: t.url,
         content: t.content,
