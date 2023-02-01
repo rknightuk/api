@@ -3,7 +3,9 @@ import uploader, { makeKey } from '../utils/uploader.js'
 
 async function run() {
   try {
-    const MASTOINSTANCE = 'social.lol'
+    // const MASTOINSTANCE = 'social.lol'
+    // const MASTOID = '109523762776095110'
+    const MASTOINSTANCE = 'mas.to'
     const MASTOID = '109677295883407777'
     const DATAPATH = './api/mastodon.json'
 
@@ -43,7 +45,8 @@ async function run() {
                     url: makeKey(m.url),
                     description: m.description,
                 }
-            })
+            }),
+            tags: (t.tags || []).map(t => t.name)
         }
     })
 
