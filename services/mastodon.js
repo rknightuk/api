@@ -19,10 +19,10 @@ const formatToot = (t) => {
 }
 async function run() {
   try {
-    // const MASTOINSTANCE = 'social.lol'
-    // const MASTOID = '109523762776095110'
-    const MASTOINSTANCE = 'mas.to'
-    const MASTOID = '109677295883407777'
+    const MASTOINSTANCE = 'social.lol'
+    const MASTOID = '109523762776095110'
+    // const MASTOINSTANCE = 'mas.to'
+    // const MASTOID = '109677295883407777'
     const DATAPATH = './api/mastodon.json'
 
     if (!fs.existsSync(DATAPATH))
