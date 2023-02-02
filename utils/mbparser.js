@@ -32,11 +32,11 @@ async function run() {
                   .replace(src, updated)
                   .replaceAll(
                     "https://toot.rknight.me/2022",
-                    "https://rknight.me/micro/2022"
+                    "/micro/2022"
                   )
                   .replaceAll(
                     "https://toot.rknight.me/2023",
-                    "https://rknight.me/micro/2023"
+                    "/micro/2023"
                   )
 
                 attachments.push({
