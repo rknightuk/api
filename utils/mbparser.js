@@ -20,7 +20,7 @@ async function run() {
             $('img').each((i, el) => {
                 const src = $(el).attr('src')
                 const alt = $(el).attr('alt')
-                const updated = src.replace('uploads/', 'mb/').replace('https://toot.rknight.me/', '')
+                const updated = src.replace('uploads/', 'site/mb/').replace('https://toot.rknight.me/', '')
                 html = html.replace(src, updated)
                 attachments.push({
                     url: updated,
