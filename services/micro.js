@@ -14,6 +14,7 @@ function run() {
     }
 
     let tags = []
+    let images = []
     const tagMap = {}
 
     Object.keys(posts).forEach(key => {
@@ -23,6 +24,15 @@ function run() {
             ...posts[key],
             summary: summary.length > 500 ? `${summary.slice(0, 500)}...` : summary,
         }
+
+        posts[key].attachments.forEach(attachment => {
+            images.unshift({
+                image: attachment.url ? attachment.url : attachment,
+                description: attachment.description || null,
+                type: attachment.type || 'image',
+                postId: key,
+            })
+        })
 
         tags = [...new Set([
             ...tags,
@@ -38,6 +48,7 @@ function run() {
     })
 
     fs.writeFileSync('./api/micro.json', JSON.stringify({
+        images: images,
         posts: Object.values(posts),
         tags: tags.sort(),
         tagMap: tagMap,
