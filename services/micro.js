@@ -26,7 +26,7 @@ function run() {
         }
 
         posts[key].attachments.forEach(attachment => {
-            images.unshift({
+            images.push({
                 image: attachment.url ? attachment.url : attachment,
                 description: attachment.description || null,
                 type: attachment.type || 'image',
