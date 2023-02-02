@@ -3,19 +3,20 @@ import uploader, { makeKey } from '../utils/uploader.js'
 
 const formatToot = (t) => {
     return {
-        id: t.id,
-        date: t.created_at,
-        spoilerText: t.spoiler_text === '' ? null : t.spoiler_text,
-        url: t.url,
+        source: t.url,
+        path: t.id,
         content: t.content,
+        date: t.created_at,
+        spoiler: t.spoiler_text === '' ? null : t.spoiler_text,
         attachments: t.media_attachments.map(m => {
             return {
                 type: m.type,
-                url: makeKey(m.url),
+                url: `site/i/${t.id}-${makeKey(m.url)}`,
                 description: m.description,
             }
         }),
-        tags: (t.tags || []).map(t => t.name)
+        tags: (t.tags || []).map(t => t.name),
+        type: t.application.name,
     }
 }
 async function run() {
@@ -54,7 +55,10 @@ async function run() {
     newTootBody.forEach(t => {
         newToots.push(t.id)
         t.media_attachments.forEach(m => {
-            newImages.push(m.url)
+            newImages.push({
+                url: m.url,
+                prefix: t.id,
+            })
         })
     })
 
@@ -64,7 +68,7 @@ async function run() {
 
         for (const image of newImages)
         {
-            await uploader(image)
+            await uploader(image.url, image.prefix)
         }
     } else {
         console.log('no new toots')

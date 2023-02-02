@@ -17,7 +17,7 @@ export const makeKey = (filename) => {
     return filename.split('/').pop()
 }
 
-export default async (filename) => {
+export default async (filename, prefix) => {
     // download
     const filekey = makeKey(filename)
     const downloadedFilePath = `./tmp/${filekey}`
@@ -43,7 +43,7 @@ export default async (filename) => {
     const uploadParams = {
         Bucket: 'rknightuk',
         Body: fileStream,
-        Key: `site/i/${Date.now()}-${path.basename(filekey)}`,
+        Key: `site/i/${prefix}-${path.basename(filekey)}`,
         ACL: 'public-read',
         ContentType: mime,
     }
