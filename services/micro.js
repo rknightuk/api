@@ -43,7 +43,7 @@ function run() {
 
         tags = [...new Set([
             ...tags,
-            ...posts[key].tags,
+            ...formattedTags,
         ])]
 
         posts[key].tags.forEach(t => {
