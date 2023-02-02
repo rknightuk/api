@@ -1,5 +1,6 @@
 import fs from 'fs'
 import dotenv from 'dotenv'
+import build from '../utils/build.js'
 dotenv.config()
 
 async function run() {
@@ -22,9 +23,7 @@ async function run() {
         console.log('✅ Updated')
     })
 
-    fetch(process.env.RKNIGHTHOOK, {
-        method: 'get',
-    })
+    build()
 }
 
 run()

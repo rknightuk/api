@@ -10,3 +10,4 @@ note
 episodes
 assets/pod/*
 tmp
+utils/microblog.json

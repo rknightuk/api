@@ -1,9 +1,27 @@
 import fs from 'fs'
+import build from '../utils/build.js'
 import uploader, { makeKey } from '../utils/uploader.js'
 
+const AUTO_TAGS = [
+    { needle: 'ruminatepodcast.com', tags: ['Statuses'] },
+    { app: 'status.lol', tags: ['Statuses'] }
+]
+
 const formatToot = (t) => {
+    let additionalTags = []
+    AUTO_TAGS.forEach(a => {
+        if (a.needle && t.content.includes(a.needle))
+        {
+            additionalTags = additionalTags.concat(a.tags)
+        }
+        if (a.app && t.application.name === a.app)
+        {
+            additionalTags = additionalTags.concat(a.tags)
+        }
+    })
     return {
         source: t.url,
+        title: null,
         path: t.id,
         content: t.content,
         date: t.created_at,
@@ -11,12 +29,16 @@ const formatToot = (t) => {
         attachments: t.media_attachments.map(m => {
             return {
                 type: m.type,
-                url: `site/i/${t.id}-${makeKey(m.url)}`,
+                url: `site/m/${t.id}-${makeKey(m.url)}`,
                 description: m.description,
             }
         }),
-        tags: (t.tags || []).map(t => t.name),
-        type: t.application.name,
+        tags: [
+            ...(t.tags || []).map(t => t.name),
+            ...additionalTags
+        ],
+        application: t.application.name,
+        type: 'mastodon',
     }
 }
 async function run() {
@@ -62,7 +84,8 @@ async function run() {
         })
     })
 
-    if (newToots.length > 0)
+    let hasNewToots = newToots.length > 0
+    if (hasNewToots)
     {
         console.log(`Got ${newToots.length} toots`)
 
@@ -87,10 +110,15 @@ async function run() {
     fs.writeFileSync(DATAPATH, JSON.stringify({
         sinceId: newSinceId || null,
         posts: {
-            ...tootData.posts,
             ...toots,
+            ...tootData.posts,
         }
     }, '', 2))
+
+    if (hasNewToots)
+    {
+        build()
+    }
 
   } catch (error) {
     console.log(error)

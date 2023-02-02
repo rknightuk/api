@@ -43,7 +43,7 @@ export default async (filename, prefix) => {
     const uploadParams = {
         Bucket: 'rknightuk',
         Body: fileStream,
-        Key: `site/i/${prefix}-${path.basename(filekey)}`,
+        Key: `site/m/${prefix}-${path.basename(filekey)}`,
         ACL: 'public-read',
         ContentType: mime,
     }
