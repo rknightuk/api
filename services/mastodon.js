@@ -22,7 +22,7 @@ const formatToot = (t) => {
     return {
         source: t.url,
         title: null,
-        path: t.id,
+        path: `${t.id}/index.html`,
         content: t.content,
         date: t.created_at,
         spoiler: t.spoiler_text === '' ? null : t.spoiler_text,
