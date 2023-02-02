@@ -52,6 +52,7 @@ function run() {
         posts: Object.values(posts),
         tags: tags.sort(),
         tagMap: tagMap,
+        postMap: posts,
     }, '', 2))
 }
 
