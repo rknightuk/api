@@ -46,7 +46,7 @@ function run() {
             ...formattedTags,
         ])]
 
-        posts[key].tags.forEach(t => {
+        formattedTags.forEach(t => {
             tagMap[t] = [
                 ...tagMap[t] || [],
                 posts[key]
