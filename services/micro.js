@@ -26,12 +26,15 @@ function run() {
         }
 
         posts[key].attachments.forEach(attachment => {
-            images.push({
-                url: attachment.url ? attachment.url : attachment,
-                description: attachment.description || null,
-                type: attachment.type || 'image',
-                postId: key,
-            })
+            if (attachment.url.includes('.jpg'))
+            {
+                images.push({
+                    url: attachment.url ? attachment.url : attachment,
+                    description: attachment.description || null,
+                    type: attachment.type || 'image',
+                    postId: key,
+                })
+            }
         })
 
         tags = [...new Set([
