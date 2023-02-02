@@ -17,7 +17,7 @@ function run() {
     const tagMap = {}
 
     Object.keys(posts).forEach(key => {
-        const summary = stripTags(posts[key].content)
+        const summary = stripTags(posts[key].content).replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')
 
         posts[key] = {
             ...posts[key],
