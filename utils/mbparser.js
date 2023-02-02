@@ -20,8 +20,14 @@ async function run() {
             $('img').each((i, el) => {
                 const src = $(el).attr('src')
                 const alt = $(el).attr('alt')
-                const updated = src.replace('uploads/', 'site/mb/')
+                let updated = src.replace('uploads/', 'site/mb/')
                     .replace('https://toot.rknight.me/', 'https://rknightuk.s3.amazonaws.com/')
+
+                if (updated.startsWith('site/mb'))
+                {
+                    updated = updated.replace('site/mb', 'https://rknightuk.s3.amazonaws.com/site/mb')
+                }
+
                 html = html.replace(src, updated)
                 attachments.push({
                     url: updated,
