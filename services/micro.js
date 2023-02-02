@@ -38,7 +38,7 @@ function run() {
         })
 
         const formattedTags = posts[key].tags.map(t => {
-            return string.charAt(0).toUpperCase() + string.slice(1)
+            return t.charAt(0).toUpperCase() + t.slice(1)
         })
 
         tags = [...new Set([
