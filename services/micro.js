@@ -1,8 +1,5 @@
 import fs from 'fs'
-
-const stripTags = (text) => {
-  return text.replace(/<[^>]*>/g, '').replace(/\n\n/g, "\n").replace(/\n/g, " ")
-}
+import stripTags from "../utils/stripTags.js"
 
 function run() {
     const mastodon = JSON.parse(fs.readFileSync('./api/mastodon.json', 'utf8')).posts

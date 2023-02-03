@@ -1,5 +1,6 @@
 import fs from 'fs'
 import build from '../utils/build.js'
+import stripTags from "../utils/stripTags.js"
 import uploader, { makeKey } from '../utils/uploader.js'
 
 const AUTO_TAGS = [
@@ -19,6 +20,7 @@ const formatToot = (t) => {
             additionalTags = additionalTags.concat(a.tags)
         }
     })
+
     return {
         source: t.url,
         title: null,
@@ -53,6 +55,7 @@ async function run() {
     {
         console.log("making new file")
         fs.writeFileSync(DATAPATH, JSON.stringify({
+
             sinceId: null,
             posts: {}
         }, '', 2))
@@ -75,7 +78,12 @@ async function run() {
     const newToots = []
 
     newTootBody.forEach(t => {
-        newToots.push(t.id)
+        if (stripTags(t.content).startsWith('@'))
+        {
+            return
+        }
+
+        newToots.push(t.id);
         t.media_attachments.forEach(m => {
             newImages.push({
                 url: m.url,
@@ -102,18 +110,28 @@ async function run() {
     const allTootBody = await allTootResponse.json()
 
     allTootBody.forEach(t => {
+        if (stripTags(t.content).startsWith("@")) {
+          return
+        }
         toots[t.id] = formatToot(t)
     })
 
     const newSinceId = Object.keys(toots)[0]
 
-    fs.writeFileSync(DATAPATH, JSON.stringify({
-        sinceId: newSinceId || null,
-        posts: {
-            ...toots,
+    fs.writeFileSync(
+      DATAPATH,
+      JSON.stringify(
+        {
+          sinceId: newSinceId || null,
+          posts: {
             ...tootData.posts,
-        }
-    }, '', 2))
+            ...toots,
+          },
+        },
+        "",
+        2
+      )
+    );
 
     if (hasNewToots)
     {
