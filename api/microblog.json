@@ -3441,20 +3441,6 @@
     "type": "mb",
     "application": "micro.blog"
   },
-  "2022/12/18/pramis-challenge.html": {
-    "source": null,
-    "title": "Prami's Challenge",
-    "path": "2022/12/18/pramis-challenge.html",
-    "content": "<p><a href=\"https://social.lol/@prami/109530090151262300\">Prami posted a challenge on social.lol</a> to decode this string and win a lifetime subscription to <a href=\"https://home.omg.lol/referred-by/robb\">omg.lol</a>.</p>\n<blockquote>\n<p>The string below is an encoded lifetime omg.lol gift code:</p>\n<p>eoad1o1fpoawctnjeiri11dmj7rir6d8ehadkt4seo6u4</p>\n<p>[...]</p>\n<p>in this format: XXXX-XXXX-XXXX-XXXX</p>\n</blockquote>\n<p>I figured I'd have a go which ended up being a good few hours. Then I <a href=\"https://toot.rknight.me/2022/12/17/this-challenge-from.html\">kind of lost my mind a bit</a>. Then went to bed having given up (and needing to be up for a flight this morning).</p>\n<p>Overnight, <a href=\"https://social.lol/@jmj\">Joanna</a> solved it and I felt like I'd been presented with a sock, I was free. <a href=\"https://social.lol/@prami/109531877004198974\">The solution</a> was 3 schemes: <code>z-base-32</code> then <code>rot13</code> then <code>base64</code>. I googled <em>a lot</em> last night and not once did I see <a href=\"https://en.wikipedia.org/wiki/Base32#z-base-32\"><code>z-base-32</code></a> so I had no chance (although I <em>was</em> <a href=\"https://cryptii.com/pipes/z-base-32\">on a website that supports it</a> but clearly didn't see it).</p>\n<p>Other things I tried:</p>\n<ul>\n<li>Various different cypher detectors</li>\n<li>Asking <a href=\"https://chat.openai.com/chat\">ChatGPT</a> nicely</li>\n<li><a href=\"https://hashcat.net/hashcat/\">hashcat</a></li>\n<li><a href=\"https://github.com/Ciphey/Ciphey\">Ciphey</a> - this one crashed my computer trying to run overnight</li>\n</ul>\n",
-    "date": "2022-12-18T07:43:40+00:00",
-    "spoiler": null,
-    "attachments": [],
-    "tags": [
-      "Webdev"
-    ],
-    "type": "mb",
-    "application": "micro.blog"
-  },
   "2022/12/17/234824.html": {
     "source": null,
     "title": null,
@@ -3546,18 +3532,6 @@
     "tags": [
       "Christmas"
     ],
-    "type": "mb",
-    "application": "micro.blog"
-  },
-  "2022/12/16/chatcgt-and-mysql.html": {
-    "source": null,
-    "title": "ChatCGT and mySQL Database Schemas",
-    "path": "2022/12/16/chatcgt-and-mysql.html",
-    "content": "<p><a href=\"https://chat.openai.com/chat\">ChatCGT</a> is wild. I entered &quot;<em>Describe a mysql database schema for tracking the owned books of multiple people</em>&quot; and it came back with the queries to write the tables including foreign keys:</p>\n<pre><code class=\"language-mysql\">CREATE TABLE people (\n  id INTEGER PRIMARY KEY,\n  name VARCHAR(255) NOT NULL\n);\n\nCREATE TABLE books (\n  id INTEGER PRIMARY KEY,\n  title VARCHAR(255) NOT NULL,\n  author VARCHAR(255) NOT NULL,\n  year INTEGER NOT NULL\n);\n\nCREATE TABLE owned_books (\n  person_id INTEGER NOT NULL,\n  book_id INTEGER NOT NULL,\n  PRIMARY KEY (person_id, book_id),\n  FOREIGN KEY (person_id) REFERENCES people(id),\n  FOREIGN KEY (book_id) REFERENCES books(id)\n);\n</code></pre>\n<p>I do things like this regularly so I <em>can</em> do this no problem but having a rough draft dumped in front of me within seconds is handy. It even gives examples of what queries you could run with the data, so I followed up with &quot;<em>What would the query for how many books each person owns look like?</em>&quot;</p>\n<pre><code class=\"language-mysql\">SELECT p.name, COUNT(ob.book_id) AS num_books\nFROM people p\nJOIN owned_books ob ON p.id = ob.person_id\nGROUP BY p.id\n</code></pre>\n<p>I'm not convinced I'm getting replaced <em>yet</em> but I'm a tiny bit more worried than I was a few weeks ago.</p>\n",
-    "date": "2022-12-16T19:38:07+00:00",
-    "spoiler": null,
-    "attachments": [],
-    "tags": [],
     "type": "mb",
     "application": "micro.blog"
   },
@@ -4297,20 +4271,6 @@
     "type": "mb",
     "application": "micro.blog"
   },
-  "2022/12/02/my-favourite-albums.html": {
-    "source": null,
-    "title": "My Favourite Albums of 2022",
-    "path": "2022/12/02/my-favourite-albums.html",
-    "content": "<p>It's been a really good year for music especially for artists I've been listening to for years.</p>\n<ul>\n<li><a href=\"https://music.apple.com/gb/album/love-sux-deluxe/1655449416\">Avril Lavinge - Love Sux</a> - This is the link to the deluxe version which contains some excellent acoustic versions of some of the tracks.</li>\n<li><a href=\"https://music.apple.com/gb/album/kings-of-the-new-age/1607207409\">State Champs - Kings of the New Age</a></li>\n<li><a href=\"https://music.apple.com/us/album/harder-than-it-looks/1600965603\">Simple Plan - Hard Than It Looks</a> - This is as good an album as they've ever made.</li>\n<li><a href=\"https://music.apple.com/gb/album/holy-fvck/1628440994\">Demi Levato - HOLY FVCK</a> - this was a suprise entry for me, I didn't expect to like it as much as I do.</li>\n<li><a href=\"https://music.apple.com/gb/album/just-woke-up/1603918127\">Jaret Jay Reddick - Just Woke Up</a></li>\n<li><a href=\"https://music.apple.com/gb/album/super-relatable/1637732324\">Beefy - Super Relatable</a></li>\n<li><a href=\"https://music.apple.com/gb/album/a-whole-new-wurst-2/1625667455\">Punk Rock Factory - A Whole New Wurst 2</a> - Their  cover of <em>Surface Pressure</em> is amazing.</li>\n</ul>\n<p>The released tracks on <a href=\"https://music.apple.com/gb/album/tear-me-to-pieces/1647133854\">Story of the Year's new album</a> are fantastic. I can't wait to hear the rest of them.</p>\n<p>Finally I discovered <a href=\"https://music.apple.com/gb/album/never-look-back-deluxe/1634447768\">Never Look Back by Goldfinger</a>. Apparently it came out in 2020 and I completely missed it. There's a great version of <em>Here In Your Bedroom</em> featuring Avril on this deluxe version of the album.</p>\n",
-    "date": "2022-12-02T19:50:50+00:00",
-    "spoiler": null,
-    "attachments": [],
-    "tags": [
-      "Music"
-    ],
-    "type": "mb",
-    "application": "micro.blog"
-  },
   "2022/12/02/quick-lego-breaking.html": {
     "source": null,
     "title": null,
@@ -4476,20 +4436,6 @@
     "attachments": [],
     "tags": [
       "Movies"
-    ],
-    "type": "mb",
-    "application": "micro.blog"
-  },
-  "2022/11/29/my-music-replay.html": {
-    "source": null,
-    "title": "My Music Replay 2022",
-    "path": "2022/11/29/my-music-replay.html",
-    "content": "<p><a href=\"http://replay.music.apple.com\">Apple Music Replay</a> is a vast improvement on last year. I grabbed some of the data so I have a record of it (I have no idea if you can access a previous years data or not).</p>\n<p>No suprises Hamilton is top again with Lin-Manuel Miranda and Leslie Odom, Jr. taking 2 of the top artist spots. Combined, they take the real top spot.</p>\n<p>I was in the top 100 listeners for Punk Rock Factory and Goldfinger.</p>\n<p><strong>3695 songs</strong></p>\n<p><strong>696 Artists</strong></p>\n<p>Top artists:</p>\n<ol>\n<li><a href=\"https://music.apple.com/us/artist/punk-rock-factory/975678831\">Punk Rock Factory</a> - 4,447 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/goldfinger/2089079\">Goldfinger</a> - 3,354 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/lin-manuel-miranda/329027198\">Lin-Manuel Miranda</a> - 3,292 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/linkin-park/148662\">Linkin Park</a> - 3,046 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/leslie-odom-jr/580650079\">Leslie Odom, Jr.</a> - 2,886 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/simple-plan/150861\">Simple Plan</a> - 2,303 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/bowling-for-soup/1650849\">Bowling for Soup</a> - 2,015 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/machine-gun-kelly/465954501\">Machine Gun Kelly</a> - 1,920 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/avril-lavigne/459885\">Avril Lavigne</a> - 1,837 minutes</li>\n<li><a href=\"https://music.apple.com/us/artist/mc-lars/45378751\">MC Lars</a> - 1,772 minutes</li>\n</ol>\n<p><strong>231 Albums</strong></p>\n<p>I have no idea how it works out the play count on albums but I assume this is individual tracks so I've worked out the times I've played an album based on this. Apple doesn't give numbers for albums 6-10.</p>\n<p>Top Albums:</p>\n<ol>\n<li><a href=\"https://music.apple.com/us/album/hamilton-an-american-musical-original-broadway-cast/1025210938\">Hamilton: An American Musical (Original Broadway Cast Recording)</a> - 1,581 plays / ~35 times</li>\n<li><a href=\"https://music.apple.com/us/album/never-look-back-deluxe/1634447768\">Never Look Back (Deluxe) - Goldfinger</a> - 1,099 plays / ~57 times</li>\n<li><a href=\"https://music.apple.com/us/album/harder-than-it-looks/1600965603\">Harder Than It Looks - Simple Plan</a> 503 plays / ~50 times</li>\n<li><a href=\"https://music.apple.com/us/album/love-sux-deluxe/1655449416\">Love Sux - Avril Lavigne</a> - 464 plays / ~38 times</li>\n<li><a href=\"https://music.apple.com/us/album/just-woke-up/1603918127\">Just Woke Up - Jaret Ray Reddick</a> - 448 plays / ~37 times</li>\n<li><a href=\"https://music.apple.com/us/album/tickets-to-my-downfall-sold-out-deluxe/1533882860\">Tickets to My Downfall (SOLD OUT Deluxe)</a></li>\n<li><a href=\"https://music.apple.com/us/album/recharged/701162375\">RECHARGED - Linkin Park</a></li>\n<li><a href=\"https://music.apple.com/us/album/kings-of-the-new-age/1607207409\">Kings of the New Age - State Champs</a></li>\n<li><a href=\"https://music.apple.com/us/album/with-sprinkles/372936293\">With Sprinkles - Beefy</a></li>\n<li><a href=\"https://music.apple.com/us/album/single-and-famous/328126452\">Single and Famous - K.Flay and MC Lars</a></li>\n</ol>\n",
-    "date": "2022-11-29T16:33:22+00:00",
-    "spoiler": null,
-    "attachments": [],
-    "tags": [
-      "Music"
     ],
     "type": "mb",
     "application": "micro.blog"
@@ -4911,27 +4857,6 @@
     "type": "mb",
     "application": "micro.blog"
   },
-  "2022/11/17/importing-tweets-into.html": {
-    "source": null,
-    "title": "Importing Tweets into Micro.blog",
-    "path": "2022/11/17/importing-tweets-into.html",
-    "content": "<p>I wanted to import a bunch of tweets from my archive (mostly cat photos and a few other bits) but I didn't want to have to manually go through each tweet, copy the text and download the photos. So I wrote a script to do it for me once I had the IDs (which I got with my <a href=\"https://rknight.me/get-safari-tabs-shortcut/\">Safari shortcut</a>).</p>\n<p>One thing that had annoyed me for a while is I didn't keep a diary/note of things that happened and my thoughts during the first year of so of the pandemic but thanks to going through my archive I now <a href=\"https://toot.rknight.me/categories/covid/\">have that</a>. On a cheerier note I have a lovely collection of animals in the <a href=\"https://toot.rknight.me/categories/pets/\">pets category</a>. These additional categories were done manually (with the help of <a href=\"https://github.com/sbarex/QLMarkdown\">QLMarkdown</a>) as I couldn't think of a way to automate this.</p>\n<p>Once I had the IDs it was a case of getting the format correctly (for example, Micro.blog will fail an import with empty categories in the YAML). I was able to take ~450 tweets, convert them to markdown and <a href=\"https://toot.rknight.me/categories/imported-tweets/\">import them into Micro.blog</a>. For example, this tweet:</p>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/1d670face2.png\" width=\"600\" height=\"514\" alt=\"\" />\n<p>becomes:</p>\n<pre><code>---\ndate: 2022-10-20T13:56:19+00:00\ncategories: Imported Tweets\n---\n\n&quot;You could not live with your own failure. Where did that bring you? Back to me&quot;\n\n![](https://pbs.twimg.com/media/Ffg6jkDXkAARD4p.jpg)\n</code></pre>\n<p>The script isn't perfect. It doesn't do anything with hashtags or usernames, nor does it check if a tweet is a reply or a retweet. The <a href=\"https://github.com/rknightuk/twitter-to-micro-blog\">project readme.md</a> has steps for using it on your own archive.</p>\n",
-    "date": "2022-11-17T14:28:46+00:00",
-    "spoiler": null,
-    "attachments": [
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/1d670face2.png",
-        "description": "",
-        "type": "image"
-      }
-    ],
-    "tags": [
-      "Microblog Tools",
-      "Webdev"
-    ],
-    "type": "mb",
-    "application": "micro.blog"
-  },
   "2022/11/17/building-a-website.html": {
     "source": null,
     "title": null,
@@ -5213,69 +5138,6 @@
     "date": "2022-11-08T12:07:32+00:00",
     "spoiler": null,
     "attachments": [],
-    "tags": [
-      "DIY"
-    ],
-    "type": "mb",
-    "application": "micro.blog"
-  },
-  "2022/11/08/year-of-renovation.html": {
-    "source": null,
-    "title": "Year of Renovation",
-    "path": "2022/11/08/year-of-renovation.html",
-    "content": "<p><a href=\"https://rknight.me/year-of-renovation\">This post has been moved</a></p>\n<p>We moved into our house November 3rd 2021, just over a year ago. Most of the house hadn't been decorated since it was built in the '70s so everything needed redoing. With the exception of a few carpets and a bit of painting, everything is now done.</p>\n<h2>Bathroom</h2>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/479c1060d6.jpg\">\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/579ab98afe.jpg\">\n<h2>Main Bedroom</h2>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/f34b84f430.jpg\">\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/52acf1be38.jpg\">\n<h2>Spare Room</h2>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/40551e85e4.jpg\">\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/a6ce6b2095.jpg\">\n<h2>Office</h2>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/6188eec281.jpg\">\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/a3fcbf6685.jpg\">\n<h2>Nursery</h2>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/7aa3b4289d.jpg\">\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/24cbab52b6.jpg\">\n<h2>Kitchen</h2>\n<p>This was the biggest project. We extended into the garage to make a kitchen/diner and add a utility room.</p>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/891c56d65a.jpg\">\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/24e9efd049.jpg\">\n<p>Update: <a href=\"/micro/2022/11/24/in-better-news.html\">Living Room</a></p>\n",
-    "date": "2022-11-08T12:01:35+00:00",
-    "spoiler": null,
-    "attachments": [
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/479c1060d6.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/579ab98afe.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/f34b84f430.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/52acf1be38.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/40551e85e4.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/a6ce6b2095.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/6188eec281.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/a3fcbf6685.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/7aa3b4289d.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/24cbab52b6.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/891c56d65a.jpg",
-        "type": "image"
-      },
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/24e9efd049.jpg",
-        "type": "image"
-      }
-    ],
     "tags": [
       "DIY"
     ],
@@ -6323,24 +6185,6 @@
     "date": "2022-09-14T17:50:32+00:00",
     "spoiler": null,
     "attachments": [],
-    "tags": [],
-    "type": "mb",
-    "application": "micro.blog"
-  },
-  "2022/09/14/fix-for-bluetooth.html": {
-    "source": null,
-    "title": "Fix for Bluetooth Audio Cutting Out on the Mac",
-    "path": "2022/09/14/fix-for-bluetooth.html",
-    "content": "<p>Bluetooth cutting out randomly on my Mac when using wireless headphones has been an issue for me for ages. I assumed it was because of everyones BT devices in the office but I'm here by myself this morning and it was still happening.</p>\n<p>Had a google around and found <a href=\"https://www.reddit.com/r/MacOSBeta/comments/qjgqjx/i_think_ive_found_a_fix_for_the_bluetooth/\">this thread</a> on Reddit and it solved it. Settings &gt; Sharing &gt; Turn off AirPlay Reciever.</p>\n<p>I wish I'd looked for a solution sooner.</p>\n<img src=\"https://rknightuk.s3.amazonaws.com/site/mb/2022/e1d65fbd95.png\" width=\"600\" height=\"488\" alt=\"\" />\n<p>Update for Ventura: System Settings &gt; General &gt; AirDrop &amp; Handoff. Thanks <a href=\"https://www.trevorkay.me\">Trevor</a>.</p>\n",
-    "date": "2022-09-14T07:47:13+00:00",
-    "spoiler": null,
-    "attachments": [
-      {
-        "url": "https://rknightuk.s3.amazonaws.com/site/mb/2022/e1d65fbd95.png",
-        "description": "",
-        "type": "image"
-      }
-    ],
     "tags": [],
     "type": "mb",
     "application": "micro.blog"
