@@ -9,6 +9,7 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
   }
   const output = []
   const converted = xml2json.toJson(data, { object: true })
+  let stats = {}
 
   converted.opml.body.outline[1].outline.forEach(podcast => {
         if (podcast.title === 'Hello Internet')
@@ -50,6 +51,18 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
             })
         }
 
+        if (!stats[podcast.title])
+        {
+            stats[podcast.title] = {
+                count: isConnectedPro ? 176 : 0,
+                title: isConnectedPro ? 'Connected' : podcast.title,
+                url: isConnectedPro ? 'https://relay.fm/connected' : podcast.htmlUrl,
+                image: `https://api.rknight.me/assets/pod/${podcast.overcastId}.jpg`,
+            }
+        }
+
+        stats[podcast.title].count += episodes.length
+
         episodes.forEach(e => {
             const progress = e.progress ? parseInt(e.progress, 10) : 0
             if (e.played === '1' || progress > 600)
@@ -87,7 +100,12 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
 
     console.log(`Outputting ${output.length} episodes`)
 
-    fs.writeFile('./api/podcasts.json', JSON.stringify(output, '', 2), err => {
+    stats = Object.values(stats).sort((a,b) => (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0))
+
+    fs.writeFile('./api/podcasts.json', JSON.stringify({
+        stats: stats,
+        log: output,
+    }, '', 2), err => {
         if (err) {
             console.error(err);
         }
