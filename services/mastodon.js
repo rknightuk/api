@@ -28,6 +28,7 @@ const formatToot = (t) => {
     content = $.html()
 
     return {
+        id: t.id,
         source: t.url,
         title: null,
         path: `${t.id}/index.html`,
@@ -85,7 +86,11 @@ async function run() {
     const newImages = []
     const newToots = []
 
-    newTootBody.forEach(t => {
+    newTootBody
+    .filter(t => {
+        return t.application.name !== 'Micro.blog'
+    })
+    .forEach(t => {
         if (stripTags(t.content).startsWith('@'))
         {
             return
@@ -118,6 +123,10 @@ async function run() {
     const allTootBody = await allTootResponse.json()
 
     allTootBody.forEach(t => {
+        if (t.application.name === 'Micro.blog')
+        {
+            return
+        }
         if (stripTags(t.content).startsWith("@")) {
           return
         }
@@ -129,6 +138,17 @@ async function run() {
         }
     })
 
+    const sortedToots = {}
+
+    Object.values({
+        ...tootData.posts,
+        ...toots,
+    })
+    .sort((a,b) => (b.id > a.id) ? 1 : ((a.id > b.id) ? -1 : 0))
+    .forEach(t => {
+        sortedToots[t.id] = t
+    })
+
     const newSinceId = Object.keys(toots)[0]
 
     fs.writeFileSync(
@@ -136,10 +156,7 @@ async function run() {
       JSON.stringify(
         {
           sinceId: newSinceId || null,
-          posts: {
-            ...toots,
-            ...tootData.posts,
-          },
+          posts: sortedToots,
         },
         "",
         2

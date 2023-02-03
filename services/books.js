@@ -1,26 +1,27 @@
 import dotenv from 'dotenv'
 dotenv.config()
+import xml2json from 'xml2json'
 import store from '../utils/store.js'
 
 async function run() {
-  try {
-    const microblogkey = process.env.MICROBLOGKEY
-    const response = await fetch('http://micro.blog/books/bookshelves/6464', { headers: { Authorization: `Bearer ${microblogkey}` }});
-    const body = await response.json();
-
-    const books = body.items.map(b => {
-        return {
-            title: b.title,
-            link: b.url,
-            image: b.image,
-            authors: b.authors.map(a => a.name).join(', ')
-        }
+  const books = await fetch("https://oku.club/rss/collection/iJ0dd")
+    .then(response => response.text())
+    .then(str => xml2json.toJson(str, { object: true }))
+    .then(data => {
+        console.log(data.rss.channel.item[0]['dc:creator']['$t'])
+        return data.rss.channel.item.slice(0, 5).map(b => {
+            return {
+                title: b.title,
+                link: b.link,
+                image: b['oku:cover'],
+                authors: b['dc:creator']['$t'],
+            }
+        })
     })
 
+    console.log(books)
+
     store.set('books', books)
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 run();

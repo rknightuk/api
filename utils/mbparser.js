@@ -13,6 +13,10 @@ async function run() {
     JSON.parse(fs.readFileSync('./utils/microblog.json', 'utf8'))
         .items
         .forEach((mb, i) => {
+            if (mb.title && mb.title.includes('Podcast Log'))
+            {
+                return
+            }
             let html = md.render(mb.content_text)
             const $ = cheerio.load(html)
 
