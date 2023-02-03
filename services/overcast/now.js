@@ -6,7 +6,7 @@ function run() {
     const data = JSON.parse(fs.readFileSync('./api/podcasts.json', 'utf8'))
 
     let podcasts = {}
-    data.slice(0, 20).forEach(episode => {
+    data.log.slice(0, 20).forEach(episode => {
         const title = episode['_podcast_metadata'].podcastTitle
         if (!podcasts[title])
         {
