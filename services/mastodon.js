@@ -36,10 +36,12 @@ const formatToot = (t) => {
         spoiler: t.spoiler_text === '' ? null : t.spoiler_text,
         attachments: t.media_attachments.map(m => {
             return {
-                type: m.type,
-                url: `site/m/${t.id}-${makeKey(m.url)}`,
-                description: m.description,
-            }
+              type: m.type,
+              url: `https://rknightuk.s3.amazonaws.com/site/m/${t.id}-${makeKey(
+                m.url
+              )}`,
+              description: m.description,
+            };
         }),
         tags: [
             ...(t.tags || []).map(t => t.name),
@@ -105,7 +107,7 @@ async function run() {
 
         for (const image of newImages)
         {
-            await uploader(image.url, image.prefix)
+            // await uploader(image.url, image.prefix)
         }
     } else {
         console.log('no new toots')
@@ -119,7 +121,12 @@ async function run() {
         if (stripTags(t.content).startsWith("@")) {
           return
         }
-        toots[t.id] = formatToot(t)
+        if (tootData.posts[t.id])
+        {
+            tootData.posts[t.id] = formatToot(t)
+        } else {
+            toots[t.id] = formatToot(t);
+        }
     })
 
     const newSinceId = Object.keys(toots)[0]
@@ -130,8 +137,8 @@ async function run() {
         {
           sinceId: newSinceId || null,
           posts: {
-            ...tootData.posts,
             ...toots,
+            ...tootData.posts,
           },
         },
         "",
