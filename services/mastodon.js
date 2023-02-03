@@ -107,7 +107,7 @@ async function run() {
 
         for (const image of newImages)
         {
-            // await uploader(image.url, image.prefix)
+            await uploader(image.url, image.prefix)
         }
     } else {
         console.log('no new toots')
