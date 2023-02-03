@@ -2,6 +2,7 @@ import fs from 'fs'
 import build from '../utils/build.js'
 import stripTags from "../utils/stripTags.js"
 import uploader, { makeKey } from '../utils/uploader.js'
+import * as cheerio from "cheerio"
 
 const AUTO_TAGS = [
     { needle: 'ruminatepodcast.com', tags: ['Statuses'] },
@@ -21,11 +22,16 @@ const formatToot = (t) => {
         }
     })
 
+    let content = t.content
+    const $ = cheerio.load(content)
+    $('.hashtag').remove()
+    content = $.html()
+
     return {
         source: t.url,
         title: null,
         path: `${t.id}/index.html`,
-        content: t.content,
+        content: content,
         date: t.created_at,
         spoiler: t.spoiler_text === '' ? null : t.spoiler_text,
         attachments: t.media_attachments.map(m => {
