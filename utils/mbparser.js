@@ -61,8 +61,8 @@ async function run() {
                 spoiler: null,
                 attachments: attachments,
                 tags: (mb.tags || []).map(t => {
-                    if (t === 'Development') return 'Webdev'
-                    return t
+                    if (t === 'Development') return 'WebDev'
+                    return t.split(' ').map(t => t.charAt(0).toUpperCase() + t.slice(1)).join('')
                 }),
                 type: 'mb',
                 application: 'micro.blog',
