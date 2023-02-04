@@ -5,7 +5,7 @@ import uploader, { makeKey } from '../utils/uploader.js'
 import * as cheerio from "cheerio"
 
 const AUTO_TAGS = [
-    { needle: 'ruminatepodcast.com', tags: ['Statuses'] },
+    { needle: 'ruminatepodcast.com', tags: ['Podcasts'] },
     { app: 'status.lol', tags: ['Statuses'] }
 ]
 
@@ -24,7 +24,11 @@ const formatToot = (t) => {
 
     let content = t.content
     const $ = cheerio.load(content)
-    $('.hashtag').remove()
+    let hashtags = []
+    $('.hashtag').each((i, el) => {
+        hashtags.push($(el).text().replace('#', ''))
+        $(el).remove()
+    })
     content = $.html()
 
     return {
@@ -45,7 +49,7 @@ const formatToot = (t) => {
             };
         }),
         tags: [
-            ...(t.tags || []).map(t => t.name),
+            ...hashtags,
             ...additionalTags
         ],
         application: t.application.name,
