@@ -34,16 +34,12 @@ function run() {
             }
         })
 
-        const formattedTags = posts[key].tags.map(t => {
-            return t.toLowerCase()
-        })
-
         tags = [...new Set([
             ...tags,
-            ...formattedTags,
+            ...posts[key].tags,
         ])]
 
-        formattedTags.forEach(t => {
+        posts[key].tags.forEach(t => {
             tagMap[t] = [
                 ...tagMap[t] || [],
                 posts[key]
