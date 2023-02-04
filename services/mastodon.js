@@ -26,7 +26,7 @@ const formatToot = (t) => {
     const $ = cheerio.load(content)
     let hashtags = []
     $('.hashtag').each((i, el) => {
-        hashtags.push($(el).text().replace('#', ''))
+        hashtags.push($(el).text().replace('#', '').charAt(0).toUpperCase() + $(el).text().replace('#', '').slice(1))
         $(el).remove()
     })
     content = $.html()
