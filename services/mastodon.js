@@ -152,13 +152,13 @@ async function run() {
         sortedToots[t.id] = t
     })
 
-    const newSinceId = Object.keys(toots)[0]
+    const newSinceId = Object.keys(sortedToots)[0]
 
     fs.writeFileSync(
       DATAPATH,
       JSON.stringify(
         {
-          sinceId: newSinceId || null,
+          sinceId: newSinceId || tootData.sinceId,
           posts: sortedToots,
         },
         "",
