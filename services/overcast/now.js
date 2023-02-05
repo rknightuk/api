@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { DateTime } from 'luxon'
 import store from '../../utils/store.js'
 
 function run() {
@@ -6,7 +7,14 @@ function run() {
     const data = JSON.parse(fs.readFileSync('./api/podcasts.json', 'utf8'))
 
     let podcasts = {}
-    data.log.slice(0, 10).forEach(episode => {
+    const sevenDaysAgo = DateTime.now().minus({ days: 7 }).startOf('day')
+    data.log.every(episode => {
+        const listenDate = DateTime.fromISO(episode.date_published)
+        if (listenDate < sevenDaysAgo)
+        {
+            console.log(`longer than a week ago: ${episode['_podcast_metadata'].podcastTitle}`)
+            return false
+        }
         const title = episode['_podcast_metadata'].podcastTitle
         if (!podcasts[title])
         {
@@ -19,6 +27,7 @@ function run() {
         }
 
         podcasts[title].count++
+        return true
     })
 
     podcasts = Object.values(podcasts).sort((a,b) => (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0))
