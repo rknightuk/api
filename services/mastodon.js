@@ -30,6 +30,11 @@ const formatToot = (t) => {
     })
     content = $.html()
 
+    let links = []
+     $('a').each((i, el) => {
+        links.push($(el).attr('href'))
+    })
+
     return {
         id: t.id,
         source: t.url,
@@ -53,6 +58,7 @@ const formatToot = (t) => {
         ],
         application: t.application.name,
         type: 'mastodon',
+        links: links,
     }
 }
 async function run() {
@@ -137,7 +143,7 @@ async function run() {
         {
             tootData.posts[t.id] = formatToot(t)
         } else {
-            toots[t.id] = formatToot(t);
+            toots[t.id] = formatToot(t)
         }
     })
 
