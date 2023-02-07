@@ -50,6 +50,12 @@ async function run() {
                 })
             })
 
+            let links = []
+
+            $('a').each((i, el) => {
+                links.push($(el).attr('href'))
+            })
+
             const path = mb.url.replace('https://toot.rknight.me/', '')
 
             microBlogPosts[path] = {
@@ -66,6 +72,7 @@ async function run() {
                 }),
                 type: 'mb',
                 application: 'micro.blog',
+                links: links,
             }
         })
 

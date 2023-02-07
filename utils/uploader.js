@@ -17,6 +17,29 @@ export const makeKey = (filename) => {
     return filename.split('/').pop()
 }
 
+export const uploadZip = async (path, filename) => {
+    const fileStream = fs.createReadStream(path)
+    fileStream.on('error', function(err) {
+        console.log('File Error', err)
+    })
+    const uploadParams = {
+        Bucket: 'rknightuk',
+        Body: fileStream,
+        Key: `api-backups/${filename}`,
+        ACL: 'public-read',
+        ContentType: 'application/zip',
+    }
+
+    s3.upload(uploadParams, function (err, data) {
+        if (err) {
+            console.log("Error", err)
+        }
+        if (data) {
+            console.log("Upload Success", data.Location)
+        }
+    })
+}
+
 export default async (filename, prefix) => {
     // download
     const filekey = makeKey(filename)

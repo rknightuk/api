@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "adm-zip": "^0.5.10",
     "aws-sdk": "^2.1306.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
