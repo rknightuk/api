@@ -23,7 +23,7 @@ function run() {
         }
 
         posts[key].attachments.forEach(attachment => {
-            if (attachment.url.includes('.jpg'))
+            if (attachment.url.includes('.jpg') || attachment.url.includes('.jpeg'))
             {
                 images.push({
                     url: attachment.url ? attachment.url : attachment,
