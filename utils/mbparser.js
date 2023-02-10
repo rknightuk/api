@@ -58,6 +58,20 @@ async function run() {
 
             const path = mb.url.replace('https://toot.rknight.me/', '')
 
+            let tags = (mb.tags || []).map(t => {
+                if (t === 'Development') return 'WebDev'
+                return t.split(' ').map(t => t.charAt(0).toUpperCase() + t.slice(1)).join('')
+            })
+
+            const isMovieReview = html.includes('★') && tags.includes('Movies')
+            const isTvReview = html.includes('Watched ') && tags.includes('TV')
+            const isBookReview = tags.includes('Books')
+            const isGameReview = html.includes('Played ') && tags.includes('Games')
+            if (isMovieReview || isTvReview || isBookReview || isGameReview)
+            {
+                tags.push('Log')
+            }
+
             microBlogPosts[path] = {
                 source: null,
                 title: mb.title || null,
@@ -66,10 +80,7 @@ async function run() {
                 date: mb.date_published,
                 spoiler: null,
                 attachments: attachments,
-                tags: (mb.tags || []).map(t => {
-                    if (t === 'Development') return 'WebDev'
-                    return t.split(' ').map(t => t.charAt(0).toUpperCase() + t.slice(1)).join('')
-                }),
+                tags: tags,
                 type: 'mb',
                 application: 'micro.blog',
                 links: links,
