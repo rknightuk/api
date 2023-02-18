@@ -89,7 +89,7 @@ async function run() {
     const tootData = JSON.parse(fs.readFileSync(TOOTDATAPATH, 'utf8'))
     const boostData = JSON.parse(fs.readFileSync(BOOSTDATAPATH, 'utf8'))
 
-    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_replies=true`
+    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_replies=true&max_id=109802547973866240`
     let path = corePath
     const sinceId = tootData.sinceId
     if (sinceId)
@@ -168,6 +168,7 @@ async function run() {
                 id: t.id,
                 username: t.reblog.account.username,
                 userlink: t.reblog.account.url,
+                title: t.reblog.card ? t.reblog.card.title : null,
                 boostUrl: t.reblog.url,
                 links: links,
             }
