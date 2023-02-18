@@ -89,7 +89,7 @@ async function run() {
     const tootData = JSON.parse(fs.readFileSync(TOOTDATAPATH, 'utf8'))
     const boostData = JSON.parse(fs.readFileSync(BOOSTDATAPATH, 'utf8'))
 
-    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_replies=true&max_id=109802547973866240`
+    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_replies=true`
     let path = corePath
     const sinceId = tootData.sinceId
     if (sinceId)
