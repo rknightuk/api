@@ -165,6 +165,7 @@ async function run() {
             if (!links.length) return
 
             boosts[t.id] = {
+                id: t.id,
                 username: t.reblog.account.username,
                 userlink: t.reblog.account.url,
                 boostUrl: t.reblog.url,
@@ -200,6 +201,17 @@ async function run() {
         sortedToots[t.id] = t
     })
 
+    const sortedBoosts = {}
+    Object.values({
+        ...boostData,
+        ...boosts,
+    })
+    .sort((a,b) => (b.id > a.id) ? 1 : ((a.id > b.id) ? -1 : 0))
+    .forEach(t => {
+        sortedBoosts[t.id] = t
+    })
+
+
     const newSinceId = Object.keys(sortedToots)[0]
 
     fs.writeFileSync(
@@ -217,10 +229,7 @@ async function run() {
     fs.writeFileSync(
       BOOSTDATAPATH,
       JSON.stringify(
-        {
-          ...boosts,
-          ...boostData,
-        },
+        sortedBoosts,
         "",
         2
       )
