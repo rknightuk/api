@@ -16,7 +16,7 @@ const formatToot = (t) => {
         {
             additionalTags = additionalTags.concat(a.tags)
         }
-        if (a.app && t.application.name === a.app)
+        if (a.app && t.application && t.application.name === a.app)
         {
             additionalTags = additionalTags.concat(a.tags)
         }
@@ -56,7 +56,7 @@ const formatToot = (t) => {
             ...hashtags,
             ...additionalTags
         ],
-        application: t.application.name,
+        application: t.application ? t.application.name : 'Web',
         type: 'mastodon',
         links: links,
     }
@@ -67,21 +67,29 @@ async function run() {
     const MASTOID = '109523762776095110'
     // const MASTOINSTANCE = 'mas.to'
     // const MASTOID = '109677295883407777'
-    const DATAPATH = './api/mastodon.json'
+    const TOOTDATAPATH = './api/mastodon.json'
+    const BOOSTDATAPATH = './api/mastodon-boosts.json'
 
-    if (!fs.existsSync(DATAPATH))
+    if (!fs.existsSync(TOOTDATAPATH))
     {
         console.log("making new file")
-        fs.writeFileSync(DATAPATH, JSON.stringify({
+        fs.writeFileSync(TOOTDATAPATH, JSON.stringify({
 
             sinceId: null,
             posts: {}
         }, '', 2))
     }
 
-    const tootData = JSON.parse(fs.readFileSync(DATAPATH, 'utf8'))
+    if (!fs.existsSync(BOOSTDATAPATH))
+    {
+        console.log("making new file")
+        fs.writeFileSync(BOOSTDATAPATH, JSON.stringify({}, '', 2))
+    }
 
-    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_reblogs=true&exclude_replies=true`
+    const tootData = JSON.parse(fs.readFileSync(TOOTDATAPATH, 'utf8'))
+    const boostData = JSON.parse(fs.readFileSync(BOOSTDATAPATH, 'utf8'))
+
+    const corePath = `https://${MASTOINSTANCE}/api/v1/accounts/${MASTOID}/statuses?exclude_replies=true`
     let path = corePath
     const sinceId = tootData.sinceId
     if (sinceId)
@@ -97,6 +105,7 @@ async function run() {
 
     newTootBody
     .filter(t => {
+        if (!t.application) return true
         return t.application.name !== 'Micro.blog'
     })
     .forEach(t => {
@@ -131,11 +140,44 @@ async function run() {
     const allTootResponse = await fetch(corePath)
     const allTootBody = await allTootResponse.json()
 
+    const boosts = {}
+    allTootBody
+        .filter(t => {
+            return t.reblog !== null;
+        })
+        .forEach(t => {
+            let content = t.reblog.content
+            const $ = cheerio.load(content)
+            let hashtags = []
+            $('.hashtag').each((i, el) => {
+                $(el).remove()
+            })
+            $('.mention').each((i, el) => {
+                $(el).remove()
+            })
+            content = $.html()
+
+            let links = []
+            $('a').each((i, el) => {
+                links.push($(el).attr('href'))
+            })
+
+            if (!links.length) return
+
+            boosts[t.id] = {
+                username: t.reblog.account.username,
+                userlink: t.reblog.account.url,
+                boostUrl: t.reblog.url,
+                links: links,
+            }
+        })
+
     allTootBody.forEach(t => {
-        if (t.application.name === 'Micro.blog')
+        if (t.application && t.application.name === 'Micro.blog')
         {
             return
         }
+        if (!t.application) return
         if (stripTags(t.content).startsWith("@")) {
           return
         }
@@ -161,11 +203,23 @@ async function run() {
     const newSinceId = Object.keys(sortedToots)[0]
 
     fs.writeFileSync(
-      DATAPATH,
+      TOOTDATAPATH,
       JSON.stringify(
         {
           sinceId: newSinceId || tootData.sinceId,
           posts: sortedToots,
+        },
+        "",
+        2
+      )
+    );
+
+    fs.writeFileSync(
+      BOOSTDATAPATH,
+      JSON.stringify(
+        {
+          ...boosts,
+          ...boostData,
         },
         "",
         2
