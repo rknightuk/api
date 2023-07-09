@@ -40,7 +40,7 @@ ${nowPageLink}
 
     const getIcon = (key, index) => {
         const icons = {
-            making: ['microphone-lines', 'laptop-code', 'terminal', 'code-pull-request', 'bug'],
+            making: ['microphone-lines', 'car-crash','laptop-code', 'terminal', 'code-pull-request', 'bug'],
             reading: ['book', 'book-bookmark', 'book-open', 'book-open-reader', 'bookmark'],
             music: ['headphones', 'radio', 'guitar', 'compact-disc', 'drum', 'sliders', 'volume-high'],
             podcast: ['headphones', 'microphone-lines', 'comments', 'tower-broadcast', 'podcast'],
