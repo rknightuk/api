@@ -7,12 +7,19 @@ const RUMINATE = {
     description: "A tech and terrible food podcast"
 }
 
+const FAMILY = {
+    title: "We Got Family",
+    repoLink: "https://wegot.family/",
+    webLink: "https://wegot.family/",
+    description: "A Fast and Furious podcast"
+}
+
 async function run() {
   try {
     const response = await fetch('https://api.github.com/users/rknightuk/repos?sort=pushed&per_page=50');
     const body = await response.json();
 
-    const repos = [RUMINATE]
+    const repos = [RUMINATE, FAMILY]
     body.forEach(repo => {
         if (repo.topics.includes('now'))
         {
