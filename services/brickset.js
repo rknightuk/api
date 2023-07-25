@@ -16,6 +16,10 @@ async function run() {
     const rawData = await setResponse.json()
 
     const data = {
+        count: {
+            sets: rawData.sets.length,
+            themes: 0,
+        },
         themes: {},
         minifigures: {
             'loose': [],
@@ -38,6 +42,8 @@ async function run() {
             url: set.bricksetURL,
         })
     }
+
+    data.count.themes = Object.keys(data.themes).length
 
     const minifigResponse = await fetch(`https://brickset.com/api/v3.asmx/getMinifigCollection?apiKey=${BRICKSET_API_KEY}&userHash=${userHash}&params={"owned":1}`)
     const minifigData = await minifigResponse.json()
