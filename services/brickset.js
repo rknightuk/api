@@ -19,6 +19,7 @@ async function run() {
         count: {
             sets: rawData.sets.length,
             themes: 0,
+            pieces: 0,
         },
         themes: [],
         sets: {},
@@ -34,6 +35,8 @@ async function run() {
             data.sets[set.theme] = []
             data.themes.push(set.theme)
         }
+
+        data.count.pieces += set.pieces
 
         data.sets[set.theme].push({
             id: set.number,
