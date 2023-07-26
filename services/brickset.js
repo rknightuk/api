@@ -20,7 +20,8 @@ async function run() {
             sets: rawData.sets.length,
             themes: 0,
         },
-        themes: {},
+        themes: [],
+        sets: {},
         minifigures: {
             'loose': [],
             'sets': [],
@@ -28,12 +29,13 @@ async function run() {
     }
 
     for (const set of rawData.sets) {
-        if (!data.themes[set.theme])
+        if (!data.sets[set.theme])
         {
-            data.themes[set.theme] = []
+            data.sets[set.theme] = []
+            data.themes.push(set.theme)
         }
 
-        data.themes[set.theme].push({
+        data.sets[set.theme].push({
             id: set.number,
             title: set.name,
             year: set.year,
