@@ -8,10 +8,23 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
     return;
   }
   const output = []
+  const subscriptions = []
   const converted = xml2json.toJson(data, { object: true })
   let stats = {}
 
+  const SECRET = [
+    'Welcome to Macintosh Extras',
+  ]
+
   converted.opml.body.outline[1].outline.forEach(podcast => {
+        if (!SECRET.includes(podcast.title))
+        {
+            subscriptions.push({
+                title: podcast.title,
+                url: podcast.htmlUrl,
+            })
+        }
+
         if (podcast.title === 'Hello Internet')
         {
             return;
@@ -97,12 +110,14 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
 
 
     output.sort((a,b) => (a.date_published < b.date_published) ? 1 : ((b.date_published < a.date_published) ? -1 : 0))
+    subscriptions.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
 
     console.log(`Outputting ${output.length} episodes`)
 
     stats = Object.values(stats).sort((a,b) => (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0))
 
     fs.writeFile('./api/podcasts.json', JSON.stringify({
+        subscriptions: subscriptions,
         stats: stats,
         log: output,
     }, '', 2), err => {
