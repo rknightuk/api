@@ -29,6 +29,7 @@ ${nowPageLink}
     const EMOJI = { // this is also the order of output
         Currently: '⭐',
         Making: '💻',
+        Ideas: '💡',
         Watching: '📺',
         Reading: '📚',
         Playing: '🎮',
@@ -51,6 +52,7 @@ ${nowPageLink}
 
     const lists = {
     Currently: data.about.map(t => `- ${t}`).join('\n'),
+    Ideas: data.ideas.map(t => `- ${t}`).join('\n'),
     Making: data.making.slice(0, 5).map((m, i) => {
         return `- [${m.title}](${m.webLink ? m.webLink : m.repoLink}): ${m.description} {${m.description.includes('omg.lol') ? 'prami' : getIcon('making', i)}}`
     }).join('\n'),
