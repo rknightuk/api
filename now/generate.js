@@ -87,18 +87,7 @@ ${nowPageLink}
     }).join('')}
     </div>`,
     Tracks: data.music.tracks.map((t, i) => `- [${t.name} by ${t.artist}](${t.link}) {${getIcon('music', i)}}`).join('\n'),
-    Artists: `
-<div class="now_albums">
-    ${data.music.artists.map(a => {
-        const text = `${a.name}`
-        let extra = ''
-        if (a.art.includes('no-artwork.png'))
-        {
-            extra = `<div class="now_album_text"><div class="now_album_text_container">${text}</div></div>`
-        }
-        return `<div class="now_album"><a href="${a.link}">${extra}<img src="${a.art}" alt="${text}"></a></div>`
-    }).join('')}
-    </div>`,
+    Artists: data.music.artists.map((t, i) => `- [${t.name}](${t.link}) {${getIcon('music', i)}}`).join('\n'),
     Albums: `
 <div class="now_albums">
     ${data.music.albums.map(b => {
