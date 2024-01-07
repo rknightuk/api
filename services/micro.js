@@ -67,8 +67,6 @@ function run() {
         })
     })
 
-    console.log(discussion)
-
     fs.writeFileSync('./api/micro.json', JSON.stringify({
         images: images,
         posts: Object.values(posts),
