@@ -28,11 +28,11 @@ function run() {
                 siteLink = siteLink.replace('https://rknight.me', '')
                 if (!discussion[siteLink]) discussion[siteLink] = []
 
-                discussion[siteLink] = {
+                discussion[siteLink].push({
                     source: posts[key].source,
                     date: posts[key].date,
                     type: 'Mastodon',
-                }
+                })
             }
         }
 
