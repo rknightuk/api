@@ -24,7 +24,8 @@ function run() {
 
             if (siteLink)
             {
-                if (!siteLink.includes('/blog/')) siteLink = siteLink.replace('https://rknight.me', 'https://rknight.me/blog').replace('https://rknight.me', '')
+                if (!siteLink.includes('/blog/')) siteLink = siteLink.replace('https://rknight.me', 'https://rknight.me/blog')
+                siteLink = siteLink.replace('https://rknight.me', '')
                 if (!discussion[siteLink]) discussion[siteLink] = []
 
                 discussion[siteLink] = {
