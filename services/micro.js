@@ -24,7 +24,7 @@ function run() {
 
             if (siteLink)
             {
-                if (!siteLink.includes('/blog/')) siteLink = siteLink.replace('https://rknight.me', 'https://rknight.me/blog')
+                if (!siteLink.includes('/blog/')) siteLink = siteLink.replace('https://rknight.me', 'https://rknight.me/blog').replace('https://rknight.me', '')
                 if (!discussion[siteLink]) discussion[siteLink] = []
 
                 discussion[siteLink] = {
@@ -66,6 +66,8 @@ function run() {
             ]
         })
     })
+
+    console.log(discussion)
 
     fs.writeFileSync('./api/micro.json', JSON.stringify({
         images: images,
