@@ -13,8 +13,28 @@ function run() {
     let tags = []
     let images = []
     const tagMap = {}
+    const discussion = {}
 
     Object.keys(posts).forEach(key => {
+        if (posts[key].type === 'mastodon' && posts[key].links)
+        {
+            let siteLink = posts[key].links.find(l => {
+                return l.includes('https://rknight.me') && l !== 'https://rknight.me' && l !== 'https://rknight.me/'
+            })
+
+            if (siteLink)
+            {
+                if (!siteLink.includes('/blog/')) siteLink = siteLink.replace('https://rknight.me', 'https://rknight.me/blog')
+                if (!discussion[siteLink]) discussion[siteLink] = []
+
+                discussion[siteLink] = {
+                    source: posts[key].source,
+                    date: posts[key].date,
+                    type: 'Mastodon',
+                }
+            }
+        }
+
         const summary = stripTags(posts[key].content).replace(/(?:https?|ftp):\/\/[\n\S]+/g, '').trim()
 
         posts[key] = {
@@ -53,6 +73,7 @@ function run() {
         tags: tags.sort(),
         tagMap: tagMap,
         postMap: posts,
+        discussion,
     }, '', 2))
 }
 
