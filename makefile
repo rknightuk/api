@@ -17,4 +17,6 @@ daily:
 	/home/forge/.nvm/versions/node/v19.9.0/bin/node /home/forge/api.rknight.me/services/other.js
 	/home/forge/.nvm/versions/node/v19.9.0/bin/node /home/forge/api.rknight.me/now/generate.js
 hourly:
-	/home/forge/.nvm/versions/node/v19.9.0/bin/node /home/forge/api.rknight.me/services/webmentions.js
+	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/webmentions.js
+	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/mastodon.js
+	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/micro.js
