@@ -1,5 +1,6 @@
 import extractUrls from 'extract-urls'
 import fs from 'fs'
+import stripTags from "../utils/stripTags.js"
 
 const OLD_URLS = [
   '/24-hours-of-just-delete-me/',
@@ -151,7 +152,7 @@ async function run() {
         const urls = (extractUrls(t.content) || []).filter(url => url.includes('https://rknight.me'))
         const isSyndicate = urls.some(url => url.includes('https://rknight.me'))
 
-        if (isSyndicate) {
+        if (isSyndicate && !stripTags(t.content).startsWith('@')) {
             urls.forEach(url => {
                 let path = new URL(url).pathname
                 if (!path.startsWith('/blog') && OLD_URLS.includes(path)) {
