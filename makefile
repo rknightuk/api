@@ -3,6 +3,7 @@ monday:
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/books.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/psn.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/tv.js
+	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/links.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node now/generate.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node now/update.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node utils/backup.js
@@ -20,3 +21,5 @@ hourly:
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/webmentions.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/mastodon.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/micro.js
+ten:
+	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/discussion.js

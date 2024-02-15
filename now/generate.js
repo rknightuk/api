@@ -32,6 +32,7 @@ ${nowPageLink}
         Ideas: '💡',
         Watching: '📺',
         Reading: '📚',
+        Saving: '🔗',
         Playing: '🎮',
         Podcasts: '🎙️',
         Albums: '🎸',
@@ -65,6 +66,7 @@ ${nowPageLink}
             </div>`
     }).join('')}
     </div>`,
+    Saving: `${data.links.map(t => `- [${t.title}](${t.url})`).join('\n')}\n\n[See all links](https://links.rknight.me)`,
     Playing: `
 <div class="now_game" style="position: relative;">
 <img src="${data.games[0].image}">
