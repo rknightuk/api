@@ -1,7 +1,6 @@
 monday:
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/lastfm.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/books.js
-	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/psn.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/tv.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/links.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node now/generate.js

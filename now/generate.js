@@ -67,13 +67,7 @@ ${nowPageLink}
     }).join('')}
     </div>`,
     Saving: `${data.links.map(t => `- [${t.title}](${t.url})`).join('\n')}\n\n[See all links](https://links.rknight.me)`,
-    Playing: `
-<div class="now_game" style="position: relative;">
-<img src="${data.games[0].image}">
-<div class="now_game_text">
-<a href="${data.games[0].link}">${data.games[0].title}</a>
-</div>
-    </div>`,
+    Playing: data.playing.map(t => `- ${t}`).join('\n'),
     Reading: `
 <div class="now_shows">
     ${data.books.map((b) => {
