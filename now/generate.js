@@ -18,12 +18,9 @@ ${nowPageLink}
 
 {last-updated}
 
-<script src="https://status.lol/robb.js?time&link&fluent&pretty"></script>
-
 --- Now ---
 `
 
-    const status = data.statuses[0]
     let webcontent = ''
 
     const EMOJI = { // this is also the order of output
