@@ -67,7 +67,7 @@ ${nowPageLink}
     }).join('')}
     </div>`,
     Saving: `${data.links.map(t => `- [${t.title}](${t.url})`).join('\n')}\n\n[See all links](https://links.rknight.me)`,
-    Playing: data.playing.map(t => `- ${t} {gamepad-alt}`).join('\n'),
+    Playing: data.playing.map(t => `- ${t} {gamepad}`).join('\n'),
     Reading: `
 <div class="now_shows">
     ${data.books.map((b) => {
