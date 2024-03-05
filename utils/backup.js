@@ -1,5 +1,5 @@
 import admZip from 'adm-zip'
-import { uploadZip } from './bunny-uploader.js'
+import { upload } from './bunny-uploader.js'
 const zip = new admZip()
 
 async function run() {
