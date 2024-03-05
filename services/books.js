@@ -8,7 +8,6 @@ async function run() {
     .then(response => response.text())
     .then(str => xml2json.toJson(str, { object: true }))
     .then(data => {
-        console.log(data.rss.channel.item[0]['dc:creator']['$t'])
         return data.rss.channel.item.slice(0, 5).map(b => {
             return {
                 title: b.title,

@@ -6,6 +6,7 @@ monday:
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node now/generate.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node now/update.js
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node utils/backup.js
+	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node utils/backup-db.js
 sunday:
 	cd /home/forge/api.rknight.me; /home/forge/.nvm/versions/node/v19.9.0/bin/node services/overcast/backup.js
 	python3 /home/forge/api.rknight.me/services/overcast/fetcher/fetch.py

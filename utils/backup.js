@@ -1,5 +1,5 @@
 import admZip from 'adm-zip'
-import { uploadZip } from './uploader.js'
+import { uploadZip } from './bunny-uploader.js'
 const zip = new admZip()
 
 async function run() {
@@ -9,7 +9,7 @@ async function run() {
     const path = `./tmp/${filename}`
     zip.writeZip(path)
 
-    await uploadZip(path, filename)
+    await upload(path, filename, 'backups')
 }
 
 run()
