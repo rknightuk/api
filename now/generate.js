@@ -103,6 +103,8 @@ ${lists[key]}
 `
 
 webcontent += `
+Last updated: ${new Date().toUTCString()}
+
 ### ${EMOJI[key]} ${key}
 
 ${lists[key]}
