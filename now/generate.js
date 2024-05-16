@@ -103,7 +103,6 @@ ${lists[key]}
 `
 
 webcontent += `
-Last updated: ${new Date().toUTCString()}
 
 ### ${EMOJI[key]} ${key}
 
@@ -111,6 +110,8 @@ ${lists[key]}
 `})
 
     webcontent = webcontent.replaceAll(/{[^}]*}/g, "")
+
+    webcontent += `${webcontent}\n\nLast updated: ${new Date().toUTCString()}`
 
     fs.writeFileSync('./api/now-web.txt', webcontent)
     fs.writeFileSync('./api/now-omg.txt', omglolcontent)
