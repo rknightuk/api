@@ -165,7 +165,7 @@ async function run() {
         }
     })
 
-    fs.writeFileSync('./api/discussion.json', JSON.stringify(discussion))
+    fs.writeFileSync('./api/discussion.json', JSON.stringify(discussion, '', 2))
 
   } catch (error) {
     console.log('unable to fetch mastodon data')
