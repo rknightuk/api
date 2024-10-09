@@ -87,7 +87,7 @@ async function run() {
             }
         })
 
-    fs.writeFileSync('./api/microblog.json', JSON.stringify(microBlogPosts, '', 2))
+    fs.writeFileSync('./api/microblog.json', JSON.stringify(microBlogPosts))
 
 }
 

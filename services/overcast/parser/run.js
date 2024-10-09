@@ -120,7 +120,7 @@ fs.readFile('services/overcast/overcast.opml', 'utf8', (err, data) => {
         subscriptions: subscriptions,
         stats: stats,
         log: output,
-    }, '', 2), err => {
+    }), err => {
         if (err) {
             console.error(err);
         }

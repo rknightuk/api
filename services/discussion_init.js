@@ -171,7 +171,7 @@ async function run() {
 
       maxId = toots.at(-1).id
 
-      fs.writeFileSync('./api/discussion.json', JSON.stringify(discussion, '', 2))
+      fs.writeFileSync('./api/discussion.json', JSON.stringify(discussion))
 
       await new Promise(r => setTimeout(r, 2000))
     }

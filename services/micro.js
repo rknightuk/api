@@ -75,7 +75,7 @@ function run() {
         tagMap: tagMap,
         postMap: posts,
         discussion,
-    }, '', 2))
+    }))
 }
 
 run();

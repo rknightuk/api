@@ -77,13 +77,13 @@ async function run() {
 
             sinceId: null,
             posts: {}
-        }, '', 2))
+        }))
     }
 
     if (!fs.existsSync(BOOSTDATAPATH))
     {
         console.log("making new file")
-        fs.writeFileSync(BOOSTDATAPATH, JSON.stringify({}, '', 2))
+        fs.writeFileSync(BOOSTDATAPATH, JSON.stringify({}))
     }
 
     const tootData = JSON.parse(fs.readFileSync(TOOTDATAPATH, 'utf8'))

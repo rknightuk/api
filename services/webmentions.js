@@ -13,7 +13,7 @@ async function run() {
         fs.writeFileSync('./api/webmentions.json', JSON.stringify({
             sinceId: null,
             mentions: []
-        }, '', 2))
+        }))
     }
 
     const mentions = JSON.parse(fs.readFileSync(DATAPATH, 'utf8'))
@@ -40,7 +40,7 @@ async function run() {
             ...newMentions,
             ...mentions.mentions,
         ]
-    }, '', 2))
+    }))
 
     console.log('Pinging Forge for rebuild')
 
