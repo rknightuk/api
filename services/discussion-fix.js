@@ -2,7 +2,7 @@ import fs from 'fs'
 
 async function run() {
     try {
-      let discussion = JSON.parse(fs.readFileSync('./discussion.json'))
+      let discussion = JSON.parse(fs.readFileSync('./api/discussion.json'))
 
       let fixed = {}
 
