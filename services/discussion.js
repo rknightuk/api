@@ -160,12 +160,19 @@ async function run() {
                 }
                 if (!discussion[path]) discussion[path] = {}
 
-                discussion[path][t.id] = t
+                discussion[path][t.id] = {
+                  content: t.content,
+                  created_at: t.created_at,
+                  url: t.url,
+                  replies_count: t.replies_count,
+                  reblogs_count: t.reblogs_count,
+                  favourites_count: t.favourites_count,
+                }
             })
         }
     })
 
-    fs.writeFileSync('./api/discussion.json', JSON.stringify(discussion, '', 2))
+    fs.writeFileSync('./api/discussion.json', JSON.stringify(discussion))
 
   } catch (error) {
     console.log('unable to fetch mastodon data')
