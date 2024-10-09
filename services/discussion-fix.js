@@ -7,7 +7,7 @@ async function run() {
       let fixed = {}
 
       Object.keys(discussion).forEach(key => {  
-        if (key.includes('/blog/')) {
+        if (key.includes('/blog/') || key.includes('/notes/')) {
             fixed[key] = {}
             Object.keys(discussion[key]).forEach(toot => {
                 fixed[key][toot] = {
