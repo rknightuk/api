@@ -150,7 +150,9 @@ async function run() {
 
     toots.forEach(t => {
         const urls = (extractUrls(t.content) || []).filter(url => url.includes('https://rknight.me'))
-        const isSyndicate = urls.some(url => url.includes('https://rknight.me'))
+        const isSyndicate = urls.some(url => {
+          return url.includes('https://rknight.me/blog') || url.includes('https://rknight.me/notes')
+        })
 
         if (isSyndicate && !stripTags(t.content).startsWith('@')) {
             urls.forEach(url => {
